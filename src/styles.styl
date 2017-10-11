@@ -11,6 +11,7 @@ $unselectable-text-colour ?= rgb(115, 115, 115)
 $today-text-colour ?= rgb(0, 150, 136)
 $selected-text-colour ?= $background-colour
 $selected-background-colour ?= rgb(0, 150, 136)
+$event-background-colour ?= rgb(255, 85, 85)
 $hover-text-colour ?= darken($selected-text-colour, 10%)
 $hover-background-colour ?= lighten($selected-background-colour, 10%)
 $button-text-colour ?= rgb(0, 150, 136)
@@ -187,6 +188,9 @@ clock-radius = 75
 						color: $text-colour
 						&.today
 							color: $today-text-colour
+						&.event
+							.event-indicator
+								display: block;
 						&.selected
 							color: $selected-text-colour
 							background-color: $selected-background-colour
@@ -196,6 +200,16 @@ clock-radius = 75
 						&:disabled
 							color: #aaa
 							background-color: none;
+					.event-indicator {
+						background-color: $event-background-colour;
+						width: 8px;
+						height: 8px;
+						position: absolute;
+						border-radius: 4px;
+						bottom: 2px;
+						right: 17px;
+						display: none;
+					}
 			& > .time-control
 				position: relative
 				& > .time-inputs
