@@ -23,8 +23,10 @@
 					each day in [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31]
 						if day === 1
 							button.btn.btn-link.day-cell(type="button" ng-style="{'margin-left': calendar.offsetMargin()}" ng-class= "calendar.class("+day+")" ng-disabled="calendar.isDisabled("+day+")" ng-show="calendar.isVisible("+day+")" ng-click="calendar.select("+day+")")= day
+							span.event-indicator
 						else
 							button.btn.btn-link.day-cell(type="button" ng-class= "calendar.class("+day+")" ng-show="calendar.isVisible("+day+")" ng-disabled="calendar.isDisabled("+day+")" ng-click="calendar.select("+day+")")= day
+							span.event-indicator
 			button.btn.btn-link.switch-control(type="button" ng-click="modeSwitch()")
 				i.fa.fa-clock-o
 				i.fa.fa-calendar

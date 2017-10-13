@@ -14,6 +14,7 @@ angular.module(MODULE_NAME, [])
   defaultOrientation: false,
   displayTwentyfour: false,
   compact: false,
+  events: []
 },
 ).value('scDateTimeI18n', {
   previousMonth: 'Previous Month',
@@ -39,6 +40,7 @@ angular.module(MODULE_NAME, [])
       replace: true,
       scope: {
         _weekdays: '=?tdWeekdays',
+        _events: '=?events'
       },
       require: 'ngModel',
       templateUrl(tElement, tAttrs) {
@@ -77,12 +79,15 @@ angular.module(MODULE_NAME, [])
             return scope.restrictions.maxdate.setHours(23, 59, 59, 999);
           }
         });
+
         scope._weekdays = scope._weekdays || scDateTimeI18n.weekdays;
         scope.$watch('_weekdays', value => {
           if ((value == null) || !angular.isArray(value)) {
             return scope._weekdays = scDateTimeI18n.weekdays;
           }
         });
+
+        scope._events = scope._events || scDateTimeI18n.events;        
 
         ngModel.$render = () => scope.setDate(ngModel.$modelValue != null ? ngModel.$modelValue : scope._defaultDate, (ngModel.$modelValue != null));
 
@@ -221,17 +226,23 @@ angular.module(MODULE_NAME, [])
           },
 
           class(d) {
-            let classString = '';
+            let classes = [];
             if ((scope.date != null) && (new Date(this._year, this._month, d).getTime() === new Date(scope.date.getTime()).setHours(0,
             0, 0, 0))) {
-              classString += 'selected';
+              classes.push('selected');
+            }
+            for (var i = 0; i < scope._events.length; ++i) {
+              if (new Date(this._year, this._month, d).getTime() === new Date(scope._events[i]).setHours(0, 0, 0, 0)) {
+                classes.push('event');
+                break;
+              }
             }
 
             if (new Date(this._year, this._month, d).getTime() === new Date().setHours(0, 0, 0, 0)) {
-              classString += ' today';
+              classes.push('today');
             }
 
-            return classString;
+            return classes.join(' ');
           },
 
           select(d) {
