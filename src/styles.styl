@@ -11,7 +11,9 @@ $unselectable-text-colour ?= rgb(115, 115, 115)
 $today-text-colour ?= rgb(0, 150, 136)
 $selected-text-colour ?= $background-colour
 $selected-background-colour ?= rgb(0, 150, 136)
-$event-background-colour ?= rgb(255, 85, 85)
+$event-background-colour-high ?= rgb(113,159,15)
+$event-background-colour-medium ?= rgb(171, 199, 111)
+$event-background-colour-low ?= rgb(213, 228, 183)
 $hover-text-colour ?= darken($selected-text-colour, 10%)
 $hover-background-colour ?= lighten($selected-background-colour, 10%)
 $button-text-colour ?= rgb(0, 150, 136)
@@ -191,6 +193,16 @@ clock-radius = 75
 						&.event
 							.event-indicator
 								display: block;
+						&.event-high {
+							.event-indicator {
+								background-color: $event-background-colour-high;
+							}
+						}
+						&.event-low {
+							.event-indicator {
+								background-color: $event-background-colour-low;
+							}
+						}
 						&.selected
 							color: $selected-text-colour
 							background-color: $selected-background-colour
@@ -201,7 +213,7 @@ clock-radius = 75
 							color: #aaa
 							background-color: none;
 					.event-indicator {
-						background-color: $event-background-colour;
+						background-color: $event-background-colour-medium;
 						width: 8px;
 						height: 8px;
 						position: absolute;

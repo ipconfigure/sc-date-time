@@ -14,7 +14,8 @@ angular.module(MODULE_NAME, [])
   defaultOrientation: false,
   displayTwentyfour: false,
   compact: false,
-  events: []
+  events: [],
+  eventMaxScore: 0
 },
 ).value('scDateTimeI18n', {
   previousMonth: 'Previous Month',
@@ -40,7 +41,9 @@ angular.module(MODULE_NAME, [])
       replace: true,
       scope: {
         _weekdays: '=?tdWeekdays',
-        _events: '=?events'
+        _cameraCount: '=?camaraCount',
+        _events: '=?events',
+        _eventMaxScore: '=?eventMaxScore'
       },
       require: 'ngModel',
       templateUrl(tElement, tAttrs) {
@@ -88,6 +91,7 @@ angular.module(MODULE_NAME, [])
         });
 
         scope._events = scope._events || scDateTimeI18n.events;        
+        scope._eventMaxScore = scope._eventMaxScore || scDateTimeI18n.eventMaxScore; 
 
         ngModel.$render = () => scope.setDate(ngModel.$modelValue != null ? ngModel.$modelValue : scope._defaultDate, (ngModel.$modelValue != null));
 
@@ -231,10 +235,22 @@ angular.module(MODULE_NAME, [])
             0, 0, 0))) {
               classes.push('selected');
             }
-            for (var i = 0; i < scope._events.length; ++i) {
-              if (new Date(this._year, this._month, d).getTime() === new Date(scope._events[i]).setHours(0, 0, 0, 0)) {
+
+            if (scope._eventMaxScore !== 0) {              
+              var dateString = this._year + '-' + (this._month + 1) + '-' + d,
+                score = scope._events[dateString] / scope._eventMaxScore;
+
+              
+              if (score) {
                 classes.push('event');
-                break;
+
+                if (score > 0.9) {
+                  classes.push('event-high');
+                }
+
+                if (score < 0.5) {
+                  classes.push('event-low');
+                }
               }
             }
 
