@@ -237,7 +237,7 @@ angular.module(MODULE_NAME, [])
             }
 
             if (scope._eventMaxScore !== 0) {              
-              var dateString = this._year + '-' + (this._month + 1) + '-' + d,
+              var dateString = this._year + '-' + (this._month + 1) + '-' + ('0' + d).slice(-2),
                 score = scope._events[dateString] / scope._eventMaxScore;
 
               
