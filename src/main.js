@@ -41,7 +41,6 @@ angular.module(MODULE_NAME, [])
       replace: true,
       scope: {
         _weekdays: '=?tdWeekdays',
-        _cameraCount: '=?camaraCount',
         _events: '=?events',
         _eventMaxScore: '=?eventMaxScore'
       },
@@ -237,7 +236,7 @@ angular.module(MODULE_NAME, [])
             }
 
             if (scope._eventMaxScore !== 0) {              
-              var dateString = this._year + '-' + (this._month + 1) + '-' + ('0' + d).slice(-2),
+              var dateString = this._year + '-' + ('0' + (this._month + 1)).slice(-2) + '-' + ('0' + d).slice(-2),
                 score = scope._events[dateString] / scope._eventMaxScore;
 
               
