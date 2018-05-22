@@ -210,11 +210,6 @@
   color: #fff;
   background-color: #009688;
 }
-.time-date > .control > .slider > .date-control > .days .day-cell:hover,
-.time-date > .control > .slider > .date-control > .days .day-cell:active {
-  color: #e6e6e6;
-  background-color: #00baa9;
-}
 .time-date > .control > .slider > .date-control > .days .day-cell:disabled {
   color: #aaa;
   background-color: none;
